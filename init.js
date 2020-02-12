@@ -108,9 +108,9 @@
             $.post(this.path+"controller.php?action=save", {settings: JSON.stringify(this.settings)}, function(data){
                 var json = JSON.parse(data);
                 if (json.status == "error") {
-                    codiad.message.error(json.message);
+                    codiad.toast.error(json.message);
                 } else {
-                    codiad.message.success(json.message);
+                    codiad.toast.success(json.message);
                 }
                 _this.load();
             });
@@ -218,9 +218,9 @@
                 $.post(_this.path+"controller.php?action=saveContent&path="+path, {"content": content}, function(result){
                     var json = JSON.parse(result);
                     if (json.status == "error") {
-                        codiad.message.error(json.message);
+                        codiad.toast.error(json.message);
                     } else {
-                        codiad.message.success(json.message);
+                        codiad.toast.success(json.message);
                     }
                 });
             });
