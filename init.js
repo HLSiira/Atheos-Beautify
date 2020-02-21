@@ -18,7 +18,7 @@
 
     codiad.Beautify = {
         
-        path: curpath,
+        path: '/plugins/Atheos-Beautify/',
         beautifyPhp: null,
         lines: 0,
         row: 0,
