@@ -1,11 +1,14 @@
-[{
-	"author": "HlSiira",
-	"version": "1.0.0",
+{
+	"author": "HLSiira",
 	"name": "Beautify",
-	"url": "https://github.com/HlSiira/Atheos-Beautify",
+	"description": "Beautify js, json, html or css files",
+	"category": "Beautify",
+	"status": "available",
+	"url": "https://github.com/HLSiira/Atheos-Beautify",
+	"version": "1.0.0",
 	"config": [{
 		"file": "dialog.php",
 		"icon": "fas fa-paint-brush",
 		"title": "Beautify"
 	}]
-}]
+}

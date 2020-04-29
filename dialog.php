@@ -57,8 +57,4 @@ require_once('../../common.php');
 			</td>
 		</tr>
 	</table>
-
-	<script>
-		codiad.Beautify.get();
-	</script>
 </form>
