@@ -22,34 +22,36 @@
 		beautifyPhp: null,
 		lines: 0,
 		row: 0,
-		settings: {
-			auto: {
-				js: false,
-				json: false,
-				html: false,
-				css: false,
-				php: false
-			},
-			beautify: {
-				indent_size: 1,
-				indent_char: "\t",
-				indent_level: 0,
-				indent_with_tabs: false,
-				preserve_newlines: true,
-				max_preserve_newlines: 10,
-				jslint_happy: false,
-				brace_style: "collapse",
-				keep_array_indentation: false,
-				keep_function_indentation: false,
-				space_before_conditional: true,
-				break_chained_methods: false,
-				eval_code: false,
-				unescape_strings: false,
-				wrap_line_length: 0
-			}
+
+		autoBeautify: {
+			css: false,
+			html: false,
+			js: false,
+			json: false,
+			php: false
 		},
 
-		files: ["html", "htm", "js", "json", "scss", "css", "php"],
+		settings: {
+
+			indent_size: 1,
+			indent_char: "\t",
+			indent_level: 0,
+			indent_with_tabs: false,
+			preserve_newlines: true,
+			max_preserve_newlines: 10,
+			jslint_happy: false,
+			brace_style: "collapse",
+			keep_array_indentation: false,
+			keep_function_indentation: false,
+			space_before_conditional: true,
+			break_chained_methods: false,
+			eval_code: false,
+			unescape_strings: false,
+			wrap_line_length: 0
+
+		},
+
+		types: ["html", "htm", "js", "json", "scss", "css", "php"],
 
 		init: function() {
 			self = this;
@@ -62,7 +64,7 @@
 			});
 
 			//Set subscriptions
-			amplify.subscribe('active.onFocus', function(path) {
+			amplify.subscribe('active.focus', function(path) {
 				if (atheos.editor.getActive() === null) return;
 				var manager = atheos.editor.getActive().commands;
 				manager.addCommand({
@@ -76,41 +78,31 @@
 					}
 				});
 			});
-			amplify.subscribe('active.onSave',
-				function(path) {
-					path = path || atheos.active.getPath();
-					var ext = self.getExtension(path);
-					if (self.files.indexOf(ext) != -1) {
-						if (self.check(path)) {
-							var content = atheos.editor.getContent();
-							self.lines = self.getLines();
-							self.row = atheos.editor.getActive().getCursorPosition().row;
-							content = self.beautifyContent(path, content);
-							if (typeof(content) !== 'string') {
-								return true;
-							}
-							atheos.editor.setContent(content);
-							self.guessCursorPosition();
-						}
-					}
-				});
+			amplify.subscribe('active.save', function(path) {
+				path = path || atheos.active.getPath();
+				var ext = pathinfo(path).extension;
 
-			amplify.subscribe('settings.dialog.save',
-				function() {
-					if (oX('#beautify_form')) {
-						self.save();
+				if (self.types.includes(ext) && self.autoBeautifyEnabled(ext)) {
+					var content = atheos.editor.getContent();
+					self.lines = self.getLines();
+					self.row = atheos.editor.getActive().getCursorPosition().row;
+					content = self.beautifyContent(path, content);
+					if (typeof(content) !== 'string') {
+						return true;
 					}
-				});
-		},
+					atheos.editor.setContent(content);
+					self.guessCursorPosition();
+				}
+			});
 
-		//////////////////////////////////////////////////////////
-		//
-		//  Show settings dialog
-		//
-		//////////////////////////////////////////////////////////
-		showDialog: function() {
-			atheos.modal.load(200,
-				self.dialog);
+			amplify.subscribe('settings.loaded', function() {
+				self.autoBeautify.css = atheos.storage('beautify.css') || false;
+				self.autoBeautify.html = atheos.storage('beautify.html') || false;
+				self.autoBeautify.js = atheos.storage('beautify.js') || false;
+				self.autoBeautify.json = atheos.storage('beautify.json') || false;
+				self.autoBeautify.php = atheos.storage('beautify.php') || false;
+
+			});
 		},
 
 		//////////////////////////////////////////////////////////
@@ -156,17 +148,20 @@
 		//////////////////////////////////////////////////////////
 		beautifyContent: function(path, content, settings) {
 			self.checkBeautifySettings();
+
 			if (typeof(settings) == 'undefined') {
-				settings = self.settings.beautify;
+				settings = self.settings;
 			}
-			var ext = self.getExtension(path);
-			if (ext == "html" || ext == "htm") {
+
+			var ext = pathinfo(path).extension;
+
+			if (ext === "html" || ext === "htm") {
 				return html_beautify(content, settings);
-			} else if (ext == "css" || ext == "scss") {
+			} else if (ext === "css" || ext === "scss") {
 				return css_beautify(content, settings);
-			} else if (ext == "js" || ext == "json") {
+			} else if (ext === "js" || ext === "json") {
 				return js_beautify(content, settings);
-			} else if (ext == "php") {
+			} else if (ext === "php") {
 				self.beautifyPhp.beautify(atheos.editor.getActive().getSession());
 				return true;
 			} else {
@@ -180,7 +175,7 @@
 		//
 		//////////////////////////////////////////////////////////
 		beautify: function() {
-			var settings = self.settings.beautify;
+			var settings = self.settings;
 			var path = atheos.active.getPath();
 			var editor = atheos.editor.getActive();
 			var session = editor.getSession();
@@ -219,26 +214,17 @@
 		},
 
 		//////////////////////////////////////////////////////////
-		//
-		//  Get settings for given file path
-		//
-		//  Parameters
-		//
-		//  path - {string} - File path
-		//
+		//  Check the autoBeautify settings for given extension
 		//////////////////////////////////////////////////////////
-		check: function(path) {
-			var ext = self.getExtension(path);
-			if (ext === "htm") {
-				ext = "html";
-			}
-			return self.settings.auto[ext];
+		autoBeautifyEnabled: function(ext) {
+			ext = 'htm' ? 'html' : ext;
+			ext = 'scss' ? 'css' : ext;
+
+			return self.autoBeautify[ext];
 		},
 
 		//////////////////////////////////////////////////////////
-		//
 		//  Check settings for beautify
-		//
 		//////////////////////////////////////////////////////////
 		checkBeautifySettings: function() {
 			var char = "";
@@ -250,21 +236,8 @@
 				char = "\t";
 				tab = 1;
 			}
-			self.settings.beautify.indent_char = char;
-			self.settings.beautify.indent_size = tab;
-		},
-
-		//////////////////////////////////////////////////////////
-		//
-		//  Get extension of file
-		//
-		//  Parameters
-		//
-		//  path - {string} - File path
-		//
-		//////////////////////////////////////////////////////////
-		getExtension: function(path) {
-			return path.substring(path.lastIndexOf(".") + 1);
+			self.settings.indent_char = char;
+			self.settings.indent_size = tab;
 		}
 	};
 })(this);

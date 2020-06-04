@@ -8,10 +8,10 @@
 
 require_once("../../common.php");
 
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////80
 // Verify Session or Key
-//////////////////////////////////////////////////////////////////
-checkSession();
+//////////////////////////////////////////////////////////////////////////////80
+Common::checkSession();
 
 $action = Common::data("action");
 $settings = Common::data("settings");
@@ -29,24 +29,6 @@ if($path) {
 }
 
 switch ($action) {
-
-	case 'save':
-		if ($settings) {
-			saveJSON("beautify.settings.php", json_decode($settings), "config");
-			Common::sendJSON("S2000", "Settings Saved.");
-		} else {
-			Common::sendJSON("E403m", "Settings");
-		}
-		break;
-
-	case 'load':
-		// shits fucked yo
-		if (file_exists(DATA."/config/beautify.settings.php")) {
-			echo json_encode(getJSON("beautify.settings.php", "config"));
-		} else {
-			echo file_get_contents("default.settings.json");
-		}
-		break;
 
 	case 'saveContent':
 		if ($path && $content) {
