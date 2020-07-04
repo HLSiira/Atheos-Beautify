@@ -1,5 +1,5 @@
 {
-	"author": "HLSiira",
+	"author": ["HLSiira", "Andr3as"],
 	"name": "Beautify",
 	"description": "Beautify js, json, html or css files",
 	"category": "Beautify",
