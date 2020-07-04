@@ -35,9 +35,9 @@
 		<td colspan="2">
 			<toggle>
 				<input id="beautify_guessCursorPosition_true" data-setting="beautify.guessCursorPosition" value="true" name="beautify.guessCursorPosition" type="radio" />
-				<label for="beautify_guessCursorPosition_true"><?php i18n("affirm"); ?></label>
+				<label for="beautify_guessCursorPosition_true"><?php echo i18n("enabled"); ?></label>
 				<input id="beautify_guessCursorPosition_false" data-setting="beautify.guessCursorPosition" value="false" name="beautify.guessCursorPosition" type="radio" checked />
-				<label for="beautify_guessCursorPosition_false"><?php i18n("deny"); ?></label>
+				<label for="beautify_guessCursorPosition_false"><?php echo i18n("disabled"); ?></label>
 			</toggle>
 		</td>
 	</tr>
