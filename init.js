@@ -13,6 +13,7 @@
 
 	amplify.subscribe('system.loadExtra', () => atheos.Beautify.init());
 
+
 	atheos.Beautify = {
 
 		path: '/plugins/Beautify/',
