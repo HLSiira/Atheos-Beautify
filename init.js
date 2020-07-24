@@ -21,9 +21,6 @@
 	atheos.Beautify = {
 
 		path: atheos.path + 'plugins/Beautify/',
-		controller: atheos.path + 'controller.php',
-		dialog: atheos.path + 'dialog.php',
-		
 
 		beautifyPhp: null,
 		lines: 0,
