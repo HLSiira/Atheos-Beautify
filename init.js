@@ -1,9 +1,14 @@
-/*
-	* Copyright (c) Codiad & Andr3as, distributed
-	* as-is and without warranty under the MIT License.
-	* See http://opensource.org/licenses/MIT for more information.
-	* This information must remain intact.
-	*/
+//////////////////////////////////////////////////////////////////////////////80
+// Atheos-Beautify: Beautify PHP, CSS, JS & HTML for the Atheos IDE
+//////////////////////////////////////////////////////////////////////////////80
+// Copyright (c) 2020 Liam Siira (liam@siira.io), distributed as-is and without
+// warranty under the MIT License. See [root]/license.md for more.
+// This information must remain intact.
+//////////////////////////////////////////////////////////////////////////////80
+// Copyright (c) 2015 Andr3as
+// Source: https://github.com/Andr3as/Codiad-Beautify
+//////////////////////////////////////////////////////////////////////////////80
+
 
 (function(global) {
 
@@ -12,8 +17,6 @@
 	var self = null;
 
 	amplify.subscribe('system.loadExtra', () => atheos.Beautify.init());
-
-		log(window.location.href);
 
 	atheos.Beautify = {
 

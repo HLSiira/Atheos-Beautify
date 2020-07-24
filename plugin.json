@@ -1,7 +1,7 @@
 {
 	"author": ["HLSiira", "Andr3as"],
 	"name": "Beautify",
-	"description": "Beautify js, json, html or css files",
+	"description": "Beautify PHP, CSS, JS & HTML for the Atheos IDE",
 	"category": "CleanCode",
 	"status": "available",
 	"url": "https://github.com/HLSiira/Atheos-Beautify",
