@@ -13,12 +13,14 @@
 
 	amplify.subscribe('system.loadExtra', () => atheos.Beautify.init());
 
+		log(window.location.href);
 
 	atheos.Beautify = {
 
-		path: '/plugins/Beautify/',
-		controller: '/plugins/Beautify/controller.php',
-		dialog: '/plugins/Beautify/dialog.php',
+		path: atheos.path + 'plugins/Beautify/',
+		controller: atheos.path + 'controller.php',
+		dialog: atheos.path + 'dialog.php',
+		
 
 		beautifyPhp: null,
 		lines: 0,
@@ -52,7 +54,7 @@
 
 		},
 
-		types: ["html", "htm", "js", "json", "scss", "css", "php"],
+		types: ["html", "htm", "js", "json", "scss", "css", "twig", "php"],
 
 		init: function() {
 			self = this;
@@ -162,7 +164,7 @@
 				return css_beautify(content, settings);
 			} else if (ext === "js" || ext === "json") {
 				return js_beautify(content, settings);
-			} else if (ext === "php") {
+			} else if (ext === "php" || ext === "twig") {
 				self.beautifyPhp.beautify(atheos.editor.getActive().getSession());
 				return true;
 			} else {
