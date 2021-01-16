@@ -16,7 +16,7 @@
 
 	var self = null;
 
-	amplify.subscribe('system.loadExtra', () => atheos.Beautify.init());
+	carbon.subscribe('system.loadExtra', () => atheos.Beautify.init());
 
 	atheos.Beautify = {
 
@@ -67,7 +67,7 @@
 			});
 
 			//Set subscriptions
-			amplify.subscribe('active.focus', function(path) {
+			carbon.subscribe('active.focus', function(path) {
 				if (atheos.editor.getActive() === null) return;
 				var manager = atheos.editor.getActive().commands;
 				manager.addCommand({
@@ -81,7 +81,7 @@
 					}
 				});
 			});
-			amplify.subscribe('active.save', function(path) {
+			carbon.subscribe('active.save', function(path) {
 				path = path || atheos.active.getPath();
 				var ext = pathinfo(path).extension;
 
@@ -98,7 +98,7 @@
 				}
 			});
 
-			amplify.subscribe('settings.loaded', function() {
+			carbon.subscribe('settings.loaded', function() {
 				self.autoBeautify.css = atheos.storage('beautify.css') || false;
 				self.autoBeautify.html = atheos.storage('beautify.html') || false;
 				self.autoBeautify.js = atheos.storage('beautify.js') || false;
