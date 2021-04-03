@@ -54,7 +54,7 @@
 
 		},
 
-		types: ["html", "htm", "js", "json", "scss", "css", "twig", "php"],
+		types: ["html", "htm", "js", "json", "scss", "css", "twig", "php", "hbs", "handlebars"],
 
 		init: function() {
 			self = this;
@@ -99,11 +99,11 @@
 			});
 
 			carbon.subscribe('settings.loaded', function() {
-				self.autoBeautify.css = atheos.storage('beautify.css') || false;
-				self.autoBeautify.html = atheos.storage('beautify.html') || false;
-				self.autoBeautify.js = atheos.storage('beautify.js') || false;
-				self.autoBeautify.json = atheos.storage('beautify.json') || false;
-				self.autoBeautify.php = atheos.storage('beautify.php') || false;
+				self.autoBeautify.css = storage('beautify.css') || false;
+				self.autoBeautify.html = storage('beautify.html') || false;
+				self.autoBeautify.js = storage('beautify.js') || false;
+				self.autoBeautify.json = storage('beautify.json') || false;
+				self.autoBeautify.php = storage('beautify.php') || false;
 
 			});
 		},
@@ -158,7 +158,7 @@
 
 			var ext = pathinfo(path).extension;
 
-			if (ext === "html" || ext === "htm") {
+			if (ext === "html" || ext === "htm" || ext === "hbs" || ext === "handlebars") {
 				return html_beautify(content, settings);
 			} else if (ext === "css" || ext === "scss") {
 				return css_beautify(content, settings);
