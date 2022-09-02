@@ -2,7 +2,7 @@
 // Atheos-Beautify: Beautify PHP, CSS, JS & HTML for the Atheos IDE
 //////////////////////////////////////////////////////////////////////////////80
 // Copyright (c) 2020 Liam Siira (liam@siira.io), distributed as-is and without
-// warranty under the MIT License. See [root]/license.md for more.
+// warranty under the MIT License. See [root]/docs/LICENSE.md for more.
 // This information must remain intact.
 //////////////////////////////////////////////////////////////////////////////80
 // Copyright (c) 2015 Andr3as
@@ -35,7 +35,6 @@
 		},
 
 		settings: {
-
 			indent_size: 1,
 			indent_char: "\t",
 			indent_level: 0,
@@ -98,13 +97,14 @@
 				}
 			});
 
-			carbon.subscribe('settings.loaded', function() {
+			carbon.subscribe('settings.loaded, settings.save', function() {
 				self.autoBeautify.css = storage('beautify.css') || false;
 				self.autoBeautify.html = storage('beautify.html') || false;
 				self.autoBeautify.js = storage('beautify.js') || false;
 				self.autoBeautify.json = storage('beautify.json') || false;
 				self.autoBeautify.php = storage('beautify.php') || false;
 
+				self.settings.brace_style = storage('beautify.brace_style') || 'collapse';
 			});
 		},
 

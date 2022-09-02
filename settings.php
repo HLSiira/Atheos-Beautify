@@ -31,6 +31,18 @@
 		</td>
 	</tr>
 	<tr>
+		<td colspan="2">Brace Style</td>
+		<td colspan="2">
+			<select class="setting" data-setting="beautify.brace_style">
+				<option value="collapse">Collapse</option>
+				<option value="expand">Expand</option>
+				<option value="end-expand">End-Expand</option>
+				<option value="none">None</option>
+				<option value="preserve-inline">Preserve-Inline</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" style="width: 60%;">Experimental: Guess cursor position</td>
 		<td colspan="2">
 			<toggle>
